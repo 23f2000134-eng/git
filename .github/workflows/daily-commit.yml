@@ -3,7 +3,7 @@ name: Daily Commit Workflow
 on:
   schedule:
     - cron: "30 6 * * *"   # runs daily at 06:30 UTC
-  workflow_dispatch:
+  workflow_dispatch:        # allow manual trigger
 
 jobs:
   daily-commit-job:
@@ -15,7 +15,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Update timestamp file - 23f2000134@ds.study.iitm.ac.in
+      # 👇 include your email here exactly as required
+      - name: Add timestamp file - 23f2000134@ds.study.iitm.ac.in
         run: |
           echo "Last run: $(date -u)" > last-run.txt
 
@@ -26,3 +27,4 @@ jobs:
           git add last-run.txt
           git commit -m "Automated daily update [skip ci]" || echo "No changes to commit"
           git push
+
